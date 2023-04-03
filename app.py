@@ -58,11 +58,11 @@ disease_classes = ['Apple___Apple_scab',
                    'Tomato___Tomato_mosaic_virus',
                    'Tomato___healthy']
 
-disease_model_path = 'models/plant_disease_model.pth'
-disease_model = ResNet9(3, len(disease_classes))
-disease_model.load_state_dict(torch.load(
-    disease_model_path, map_location=torch.device('cpu')))
-disease_model.eval()
+# disease_model_path = 'models/plant_disease_model.pth'
+# disease_model = ResNet9(3, len(disease_classes))
+# disease_model.load_state_dict(torch.load(
+#     disease_model_path, map_location=torch.device('cpu')))
+# disease_model.eval()
 
 
 # Loading crop recommendation model
@@ -238,26 +238,26 @@ def fert_recommend():
 # render disease prediction result page
 
 
-@app.route('/disease-predict', methods=['GET', 'POST'])
-def disease_prediction():
-    title = 'Harvestify - Disease Detection'
+# @app.route('/disease-predict', methods=['GET', 'POST'])
+# def disease_prediction():
+#     title = 'Harvestify - Disease Detection'
 
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return redirect(request.url)
-        file = request.files.get('file')
-        if not file:
-            return render_template('disease.html', title=title)
-        try:
-            img = file.read()
+#     if request.method == 'POST':
+#         if 'file' not in request.files:
+#             return redirect(request.url)
+#         file = request.files.get('file')
+#         if not file:
+#             return render_template('disease.html', title=title)
+#         try:
+#             img = file.read()
 
-            prediction = predict_image(img)
+#             prediction = predict_image(img)
 
-            prediction = Markup(str(disease_dic[prediction]))
-            return render_template('disease-result.html', prediction=prediction, title=title)
-        except:
-            pass
-    return render_template('disease.html', title=title)
+#             prediction = Markup(str(disease_dic[prediction]))
+#             return render_template('disease-result.html', prediction=prediction, title=title)
+#         except:
+#             pass
+#     return render_template('disease.html', title=title)
 
 
 # ===============================================================================================
